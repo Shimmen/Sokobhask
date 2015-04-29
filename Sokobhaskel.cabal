@@ -11,7 +11,7 @@ maintainer:          simon.moos95@gmail.com
 
 license:             MIT
 license-file:        LICENSE
-copyright:
+copyright:           Copyright (c) 2015 Simon Moos
 
 category:            Game
 build-type:          Simple
