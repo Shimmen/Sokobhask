@@ -89,21 +89,22 @@ emptyLevel = Level { lvlSize  = (0, 0)
                    }
 
 readLevel :: String -> Level
-readLevel str = foldl setTile (emptyLevel{lvlSize = maxi}) elems
+readLevel str = foldl setTile (emptyLevel{lvlSize = size}) tiles
   where
-    lns     = lines str
-    coords  = [[(x,y) | x <- [0..]] | y <- [0..]]
-    elems   = concat $ zipWith zip coords lns
-    maxX    = maximum . map (fst . fst) $ elems
-    maxY    = maximum . map (snd . fst) $ elems
-    maxi    = (maxX, maxY)
+    coords  = [[(x, y) | x <- [0..]]
+                       | y <- [0..]]
+    tiles = concat $ zipWith zip coords (lines str)
+
+    sizeX = maximum . map (fst . fst) $ tiles
+    sizeY = maximum . map (snd . fst) $ tiles
+    size  = (sizeX, sizeY)
 
 showLevel :: Level -> String
-showLevel lvl = unlines chars
+showLevel lvl = unlines tileLines
   where
-    (maxX, maxY) = lvlSize lvl
-    chars        = [[getTile lvl (x, y) | x <- [0..maxX]]
-                                        | y <- [0..maxY]]
+    (sizeX, sizeY) = lvlSize lvl
+    tileLines      = [[getTile lvl (x, y) | x <- [0..sizeX]]
+                                          | y <- [0..sizeY]]
 
 main :: IO ()
 main = do
