@@ -4,7 +4,7 @@
 name:                Sokobhask
 version:             0.1.0.0
 synopsis:            A simple Sokoban game written in Haskell
-homepage:            https://github.com/Shimmen/Sokobhaskel
+homepage:            https://github.com/Shimmen/Sokobhask
 
 author:              Simon Moos
 maintainer:          simon.moos95@gmail.com
