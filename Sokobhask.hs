@@ -1,6 +1,7 @@
 module Main (main) where
 
 import Prelude hiding (Left, Right)
+import System.IO
 import Data.List
 
 ----------
@@ -54,12 +55,12 @@ addTile _   (_, char) = error (show char ++ " not recognized")
 
 getTile :: Level -> Coord -> Char
 getTile lvl c
-  | isPlayer  lvl c = '@'
-  | isWall    lvl c = '#'
+  | isPlayer        lvl c = '@'
+  | isWall          lvl c = '#'
   | isFilledStorage lvl c = 'x'
-  | isCrate   lvl c = '*'
-  | isStorage lvl c = 'o'
-  | otherwise       = ' '
+  | isCrate         lvl c = '*'
+  | isStorage       lvl c = 'o'
+  | otherwise             = ' '
 
 isWall :: Level -> Coord -> Bool
 isWall lvl c = c `elem` lvlWalls lvl
@@ -102,12 +103,12 @@ update lvl inp =
   if isCrate lvl p'
     then lvl{lvlPlayer = p', lvlCrates = crates'}
     else lvl{lvlPlayer = p'}
-    
+
   where
     p0 = lvlPlayer lvl
     p1 = p0 `move` inp
     p2 = p1 `move` inp
-    
+
     -- the new player position
     p' | isWall lvl p1 || (isCrate lvl p1 && isCrate lvl p2) = p0
        | isCrate lvl p1 = if isWall lvl p1 then p0 else p1
@@ -153,7 +154,11 @@ getInput = do
 
 main :: IO ()
 main = do
+
+  --hSetEcho stdin False
+  --hSetBuffering stdin NoBuffering
+  --hSetBuffering stdout NoBuffering
+
   lvl <- loadLevel "level1.lvl"
   renderToConsole lvl
   gameLoop lvl
-
