@@ -111,7 +111,7 @@ update lvl inp =
 
     -- the new player position
     p' | isWall lvl p1 || (isCrate lvl p1 && isCrate lvl p2) = p0
-       | isCrate lvl p1 = if isWall lvl p1 then p0 else p1
+       | isCrate lvl p1 = if isWall lvl p2 then p0 else p1
        | otherwise = p1
 
     -- the new list of crates
@@ -155,9 +155,9 @@ getInput = do
 main :: IO ()
 main = do
 
-  --hSetEcho stdin False
-  --hSetBuffering stdin NoBuffering
-  --hSetBuffering stdout NoBuffering
+  hSetEcho stdin False
+  hSetBuffering stdin NoBuffering
+  hSetBuffering stdout NoBuffering
 
   lvl <- loadLevel "level1.lvl"
   renderToConsole lvl
